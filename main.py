@@ -20,6 +20,24 @@ while running:
 
 	#appliquer l'image du joueur
 	screen.blit(game.player.image, game.player.rect)
+
+	#récupérer les projectiles 
+	for projectile in game.player.all_projectiles:
+		projectile.move()
+
+	#récupérer monstres
+	for monster in game.all_monsters:
+		monster.forward()
+
+	#appliquer images projectiles
+	game.player.all_projectiles.draw(screen)
+
+	# appliquer images monstres
+	game.all_monsters.draw(screen)
+
+	# appliquer l'image de l'enemy 
+	screen.blit(game.enemy.image, game.enemy.rect)
+
 	#mettre a jour l'ecran
 	pygame.display.flip()
 
@@ -30,7 +48,6 @@ while running:
 	elif game.pressed.get(pygame.K_LEFT) and game.player.rect.x>=0:
 		game.move_left()
 
-	
 	#si joueur ferme la fenêtre
 	for event in pygame.event.get():
 		# l'évenement est fermeture
@@ -42,5 +59,9 @@ while running:
 		elif event.type == pygame.KEYDOWN:
 			game.pressed[event.key]=True
 		
+			# touche space appuyée
+			if event.key == pygame.K_SPACE:
+				game.player.launch_projectile()
+
 		elif event.type == pygame.KEYUP:
 			game.pressed[event.key]=False
