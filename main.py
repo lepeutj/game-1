@@ -1,7 +1,11 @@
 import pygame
 from game import Game
-pygame.init()
+import numpy as np
+import random
+from pynput.keyboard import Key, Controller
 
+pygame.init()
+keyboard = Controller()
 
 # générer fenêtre jeu
 pygame.display.set_caption("comet fall Game")
@@ -22,6 +26,55 @@ play_button = pygame.transform.scale(play_button, (400, 150))
 play_button_rect = play_button.get_rect()
 play_button_rect.x = screen.get_width()/3-25
 play_button_rect.y = screen.get_height()/2+40
+action = []
+
+def right():
+    keyboard.release(Key.left)
+    keyboard.press(Key.right)
+
+
+
+
+def left():
+    keyboard.release(Key.right)
+    keyboard.press(Key.left)
+
+
+
+def move():
+    if random.randint (0,1) == 0:
+        right()
+        action = 1
+    else:
+        left()
+        action = 0
+
+    return action
+
+
+
+def get_data(game):
+
+    X = []
+    Y = []
+
+    X = game.player.rect.x
+
+    enemy_list = game.all_enemy.sprites()
+
+
+    for i in range(0,3):
+        Y = np.append(Y,[enemy_list[i].rect.x,enemy_list[i].rect.y,enemy_list[i].velocity])
+
+    X = np.append(X,Y)
+
+    return X
+
+
+
+
+
+
 
 # Charger le jeu
 game = Game()
@@ -34,9 +87,12 @@ while running:
 
     # verifier si le jeu a commencé
     if game.is_playing:
-        # déclencher les instructions de la partie
+
+    # déclencher les instructions de la partie
         game.update(screen)
-    # vérifier si le jeu n'a pas commencé
+        print(get_data(game), move(),game.score)
+
+
     else:
         # ecran de bienvenue
         screen.blit(banner, banner_rect)
@@ -51,6 +107,8 @@ while running:
 
     # si joueur ferme la fenêtre
     for event in pygame.event.get():
+
+
         # l'évenement est fermeture
         if event.type == pygame.QUIT:
             running = False
@@ -60,8 +118,10 @@ while running:
         elif event.type == pygame.KEYDOWN:
             game.pressed[event.key] = True
 
+
         elif event.type == pygame.KEYUP:
             game.pressed[event.key] = False
+
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             # vérification pour savoir si la souris est en collision avec le bouton joueur

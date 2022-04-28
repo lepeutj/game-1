@@ -17,14 +17,14 @@ class Enemy(pygame.sprite.Sprite):
 		self.rect = self.image.get_rect()
 		self.rect.x  = randint(0,900)
 		self.rect.y = randint(-200, -100)
-		
+
 		#vitesse de l'enemy
 		self.velocity = randint(1,2)
-		
+
 		# health
 		self.health = 50
 		self.max_health = 50
-		
+
 		#attack
 		self.attack = 34
 
@@ -38,7 +38,7 @@ class Enemy(pygame.sprite.Sprite):
 			self.health = self.max_health
 			self.rect.x  = randint(0,900)
 			self.rect.y = randint(-200, -100)
-		
+
 			#vitesse de l'enemy
 			self.velocity = randint(1,2)
 #chute enemy
@@ -46,7 +46,7 @@ class Enemy(pygame.sprite.Sprite):
 
 		# vérifier collision avec joueur
 		if not self.game.check_collision(self, self.game.all_players):
-			
+
 			# vérifier si pas collision avec sol
 			if self.rect.y<630:
 				self.rect.y += self.velocity
@@ -55,7 +55,7 @@ class Enemy(pygame.sprite.Sprite):
 			else:
 				self.game.player.damage(self.attack)
 				self.damage(self.health)
-		
+
 		else:
 			self.damage(self.health)
 			self.game.score +=1

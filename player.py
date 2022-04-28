@@ -37,4 +37,4 @@ class Player(pygame.sprite.Sprite):
 
         # vérifier si joueur mort
         if self.health < 1:
-            self.game.game_over()       
+            self.game.game_over()

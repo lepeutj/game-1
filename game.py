@@ -2,6 +2,8 @@ import imp
 import pygame
 from player import Player
 from enemy import Enemy
+import numpy as np
+
 
 
 class Game():
@@ -32,12 +34,13 @@ class Game():
         self.pressed = {}
 
 
+
     def start(self):
         self.is_playing = True
-        # spawn enemy
         self.spawn_enemy()
         self.spawn_enemy()
         self.spawn_enemy()
+
 
 
     def game_over(self):
