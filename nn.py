@@ -15,8 +15,8 @@ warnings.filterwarnings("ignore")
 
 
 def right():
-    keyboard.release(left)
-    keyboard.press(right)
+    keyboard.release(Key.left)
+    keyboard.press(Key.right)
 
 
 def left():

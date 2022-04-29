@@ -62,9 +62,9 @@ def get_data(game):
 
     enemy_list = game.all_enemy.sprites()
 
-
     for i in range(0,3):
-        Y = np.append(Y,[enemy_list[i].rect.x,enemy_list[i].rect.y,enemy_list[i].velocity])
+        if (len(enemy_list) == 3):
+            Y = np.append(Y,[enemy_list[i].rect.x,enemy_list[i].rect.y,enemy_list[i].velocity])
 
     X = np.append(X,Y)
 
@@ -89,8 +89,9 @@ while running:
     if game.is_playing:
 
     # déclencher les instructions de la partie
-        game.update(screen)
         print(get_data(game), move(),game.score)
+        game.update(screen)
+
 
 
     else:

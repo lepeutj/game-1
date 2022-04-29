@@ -40,7 +40,7 @@ class Game():
         self.spawn_enemy()
         self.spawn_enemy()
         self.spawn_enemy()
-
+        self.score = 0
 
 
     def game_over(self):
@@ -49,8 +49,7 @@ class Game():
         self.player.health = self.player.max_health
         self.is_playing = False
         self.previous_score = self.score
-        self.score = 0
-        print(self.previous_score)
+
 
     def update(self, screen):
         # afficher le score sur l'écran
@@ -62,7 +61,7 @@ class Game():
 
         # actualiser jauge du joueur
         self.player.update_health_bar(screen)
-
+        self.score += 1
 
         # récupérer enemy
         for enemy in self.all_enemy:
